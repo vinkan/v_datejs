@@ -1,0 +1,9 @@
+// catalog 
+node_modules
+src
+
+// files
+rollup.config.mjs
+package-lock.json
+.gitignore
+.npmignore

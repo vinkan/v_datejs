@@ -1,0 +1,14 @@
+{
+  "name": "v_ttc",
+  "version": "0.0.1",
+  "description": "tcon time converter",
+  "main": "main.js",
+  "scripts": {
+    "build": "rimraf output &&  rollup -c rollup.config.mjs"
+  },
+  "author": "Vinca",
+  "license": "ISC",
+  "dependencies": {
+    "rimraf": "^5.0.7"
+  }
+}
