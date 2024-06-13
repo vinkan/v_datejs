@@ -1,15 +1,14 @@
 import { version } from '../package.json';
 import { weekday, symbol, line, quarter, month_abb, month_en, month_ch } from './static.json';
 import funny from './funny.json'
-import { zeroize, isMonth } from './utils';
+import { zeroize, isMonth, capsule } from './utils';
 const DATE = new Date()
-// 获取当前日期格式 2024/06/12
 let date = DATE.toLocaleDateString()
 class v_ttc {
     constructor() {
         this.date = date;
         this.symbol = symbol;
-        console.log('version ' + version);
+        capsule('📅 欢迎使用v_ttc', `😃 version ${version}`, 'warning');
     }
 
     /******************************************/
@@ -313,5 +312,44 @@ class v_ttc {
         }
     }
 
+
+    /**
+     * 距离新的一年剩余天数（包含当天）
+     * surplus
+     * @param {String | undefined} date 
+     * @returns Object
+     */
+    surp(date) {
+        // 获取当天日期
+        const today = date ? new Date(date) : new Date(Date.now());
+        // 获取当前年份
+        const currentYear = today.getFullYear();
+        // 获取明年第一天
+        const nextYearFirstDay = new Date(currentYear + 1, 0, 1);
+        // 计算剩余天数（包括今天）
+        const remainingDays = Math.ceil((nextYearFirstDay - today) / (1000 * 60 * 60 * 24));
+        const nextYear = currentYear + 1
+        const daysRemaining = remainingDays
+        return {
+            currentDate: this.tm(today, "date", true),
+            desc: `距离 ${nextYear} 年还剩余 ${daysRemaining} 天`,
+            nextYear,
+            daysRemaining
+        };
+
+    }
+
+    /**
+     * 本月剩余天数（包含当天）
+     * From next month
+     * @param {String | undefined} date 
+     * @returns Number
+     */
+    nm(date) {
+        date = date ? new Date(date) : new Date(Date.now())
+        const nextYearFirstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+        const diff = Math.ceil((nextYearFirstDay - date) / (1000 * 60 * 60 * 24))
+        return diff
+    }
 }
 export default new v_ttc();

@@ -21,3 +21,39 @@ export const isMonth = (month) => {
         return true
     }
 }
+
+
+// 定义颜色
+export const typeColor = (type = "default") => {
+    let color = "";
+    switch (type) {
+        case "default":
+            color = "#35495E";
+            break;
+        case "primary":
+            color = "#3488ff";
+            break;
+        case "success":
+            color = "#43B883";
+            break;
+        case "warning":
+            color = "#e6a23c";
+            break;
+        case "danger":
+            color = "#f56c6c";
+            break;
+        default:
+            break;
+    }
+    return color;
+};
+
+// 胶囊
+export const capsule = (title, info, type = "default") => {
+    console.log(
+        `%c ${title} %c ${info} %c`,
+        "background:#35495E; padding: 2px 2px; line-height: 18px; font-size:12px; border-radius: 3px 0 0 3px; color: #fff;",
+        `background:${typeColor(type)}; padding: 2px 2px; line-height: 18px; font-size:12px; border-radius: 0 3px 3px 0;  color: #fff;`,
+        "background:transparent"
+    );
+};

@@ -586,3 +586,57 @@ v.qua();
     "quarter": "第二季度"
 }
 ```
+
+#### 距离新的一年剩余天数（包含当天）
+
+```javascript
+/*
+ * @param {String | undefined} date
+ * @returns Object
+ */
+v.surp("2024-12-28");
+
+v.surp();
+```
+
+```console
+{
+    "currentDate": "2024/12/28",
+    "desc": "距离 2025 年还剩余 4 天",
+    "nextYear": 2025,
+    "daysRemaining": 4
+}
+
+{
+    "currentDate": "2024/06/13",
+    "desc": "距离 2025 年还剩余 202 天",
+    "nextYear": 2025,
+    "daysRemaining": 202
+}
+```
+
+#### 本月剩余天数（包含当天）
+
+```javascript
+/*
+ * @param {String | undefined} date
+ * @returns Number
+ */
+v.nm("2024-1-1");
+
+v.nm("2024-6-30");
+
+v.nm();
+
+v.nm(Date.now());
+
+v.nm(new Date());
+```
+
+```console
+31
+1
+18
+18
+18
+```
