@@ -10,5 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "rimraf": "^5.0.7"
-  }
+  },
+  "keywords": []
 }

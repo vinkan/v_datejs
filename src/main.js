@@ -1,6 +1,6 @@
-const d = new Date()
+const DATE = new Date()
 // 获取当前日期格式 2024/06/12
-let date = d.toLocaleDateString()
+let date = DATE.toLocaleDateString()
 // 分隔标识符
 let symbol = '/'
 // 星期几枚举
@@ -21,7 +21,7 @@ class v_ttc {
      * @returns 2024/6/12 14:16:19
      */
     ct() {
-        return d.toLocaleString()
+        return DATE.toLocaleString()
     }
 
     /**
@@ -30,7 +30,7 @@ class v_ttc {
      * @returns 
      */
     ctz() {
-        const dt = d.toLocaleString().split(' ')
+        const dt = DATE.toLocaleString().split(' ')
         const d = dt[0].split('/').map(val => val.padStart(2, '0')).join('/')
         const t = dt[1]
         return `${d} ${t}`
@@ -42,7 +42,7 @@ class v_ttc {
      * @returns 2024-6-12 14:16:19
      */
     ctc() {
-        const dt = d.toLocaleString().split(' ')
+        const dt = DATE.toLocaleString().split(' ')
         const d = dt[0].split('/').join('-')
         const t = dt[1]
         return `${d} ${t}`
@@ -54,7 +54,7 @@ class v_ttc {
      * @returns 
      */
     ctcz() {
-        const dt = d.toLocaleString().split(' ')
+        const dt = DATE.toLocaleString().split(' ')
         const d = dt[0].split('/').map(val => val.padStart(2, '0')).join('-')
         const t = dt[1]
         return `${d} ${t}`
@@ -91,13 +91,13 @@ class v_ttc {
     tm(timestamp, type, sup) {
         if (typeof timestamp === 'object') {
             if (timestamp === undefined) {
-                timestamp = d.toLocaleString()
+                timestamp = DATE.toLocaleString()
             } else {
                 timestamp = timestamp.toLocaleString()
             }
         } else {
             try {
-                timestamp = new Date(Number(d)).toLocaleString()
+                timestamp = new Date(Number(DATE)).toLocaleString()
             } catch (error) {
                 throw new Error(error)
             }
@@ -178,7 +178,7 @@ class v_ttc {
      */
     cw(date) {
         const d = new Date(date || new Date())
-        const y = d.getFullYear()
+        const y = DATE.getFullYear()
         const oneJan = new Date(y, 0, 1);
         const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000)) + 1;
         const result = Math.ceil(numberOfDays / 7);
@@ -207,12 +207,14 @@ class v_ttc {
      */
     cdw(date) {
         if (date === undefined) {
-            date = d
+            date = DATE
         } else {
             date = new Date(date)
         }
         return `星期${weekday[date.getDay()]}`
     }
+
+
 
 }
 export default new v_ttc();
