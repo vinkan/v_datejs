@@ -4,12 +4,14 @@
   "description": "tcon time converter",
   "main": "src/main.js",
   "scripts": {
-    "build": "rimraf output &&  rollup -c rollup.config.mjs"
+    "build": "rimraf dist &&  rollup -c rollup.config.mjs"
   },
   "author": "Vinca",
   "license": "ISC",
-  "dependencies": {
+  "keywords": [],
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "rimraf": "^5.0.7"
-  },
-  "keywords": []
+  }
 }

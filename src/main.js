@@ -1,16 +1,15 @@
+import { version } from '../package.json';
+import { weekday, symbol, line, quarter, month_abb, month_en, month_ch } from './static.json';
+import funny from './funny.json'
+import { zeroize, isMonth } from './utils';
 const DATE = new Date()
 // 获取当前日期格式 2024/06/12
 let date = DATE.toLocaleDateString()
-// 分隔标识符
-let symbol = '/'
-// 星期几枚举
-const weekday = [
-    '日', '一', '二', '三', '四', '五', '六'
-]
 class v_ttc {
     constructor() {
         this.date = date;
         this.symbol = symbol;
+        console.log('version ' + version);
     }
 
     /******************************************/
@@ -31,7 +30,7 @@ class v_ttc {
      */
     ctz() {
         const dt = DATE.toLocaleString().split(' ')
-        const d = dt[0].split('/').map(val => val.padStart(2, '0')).join('/')
+        const d = dt[0].split(symbol).map(val => val.padStart(2, '0')).join(symbol)
         const t = dt[1]
         return `${d} ${t}`
     }
@@ -43,7 +42,7 @@ class v_ttc {
      */
     ctc() {
         const dt = DATE.toLocaleString().split(' ')
-        const d = dt[0].split('/').join('-')
+        const d = dt[0].split(symbol).join(line)
         const t = dt[1]
         return `${d} ${t}`
     }
@@ -55,7 +54,7 @@ class v_ttc {
      */
     ctcz() {
         const dt = DATE.toLocaleString().split(' ')
-        const d = dt[0].split('/').map(val => val.padStart(2, '0')).join('-')
+        const d = dt[0].split(symbol).map(val => val.padStart(2, '0')).join(line)
         const t = dt[1]
         return `${d} ${t}`
     }
@@ -64,8 +63,8 @@ class v_ttc {
     /**
      * 日期标识符转换 
      * Date identifier conversion
-     * @param {*} date 
-     * @param {*} symbol 
+     * @param {String} date 
+     * @param {String} symbol 
      * @returns 2024-06-12 ==> 2024/06/12
      */
     dic(date, symbol) {
@@ -84,8 +83,8 @@ class v_ttc {
      * 时间戳转换成日期时间
      * Time misalignment
      * @param {*} timestamp 
-     * @param {*} type 
-     * @param {*} sup 
+     * @param {String} type 
+     * @param {Boolean} sup 
      * @returns 1718162711647 ==> 2024-06-12 11:25:11
      */
     tm(timestamp, type, sup) {
@@ -109,7 +108,7 @@ class v_ttc {
             case 'date':
                 // 只要日期
                 if (sup) {
-                    datetime = timestamp.split(" ")[0].split('/').map(val => val.padStart(2, '0')).join('/');
+                    datetime = timestamp.split(" ")[0].split(symbol).map(val => val.padStart(2, '0')).join(symbol);
                 } else {
                     datetime = timestamp.split(" ")[0]
                 }
@@ -120,7 +119,7 @@ class v_ttc {
                 break;
             default:
                 if (sup) {
-                    datetime = timestamp.split('/').map(val => val.padStart(2, '0')).join('/');
+                    datetime = timestamp.split(symbol).map(val => val.padStart(2, '0')).join(symbol);
                 } else {
                     datetime = timestamp
                 }
@@ -133,13 +132,13 @@ class v_ttc {
     /**
      * 获取上一周日期
      * the last week
-     * @param {*} date 
+     * @param {String | undefined} date 
      * @returns Array
      */
     lw(date) {
         let dates = [];
         const today = new Date(date || new Date());
-        const lastWeekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getUTCDay() - 7 + 1);
+        const lastWeekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() - 7 + 1);
 
         for (let i = 0; i < 7; i++) {
             const date = new Date(lastWeekStart.getFullYear(), lastWeekStart.getMonth(), lastWeekStart.getDate() + i);
@@ -153,13 +152,13 @@ class v_ttc {
     /**
      * 获取下一周日期
      * next week
-     * @param {*} date 
+     * @param {String | undefined} date 
      * @returns Array
      */
     nw(date) {
         let dates = [];
         const today = new Date(date || new Date());
-        const nextWeekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (7 - today.getUTCDay() + 1));
+        const nextWeekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (7 - today.getDay() + 1));
 
         for (let i = 0; i < 7; i++) {
             const date = new Date(nextWeekStart.getFullYear(), nextWeekStart.getMonth(), nextWeekStart.getDate() + i);
@@ -188,7 +187,7 @@ class v_ttc {
     /**
      * 获取今年的天数
      * Number of days this year
-     * @param {*} year 
+     * @param {Number | String | undefined} year 
      * @returns number
      */
     yd(year) {
@@ -214,7 +213,105 @@ class v_ttc {
         return `星期${weekday[date.getDay()]}`
     }
 
+    /**
+     * 有趣的事情
+     * @param {String | Number} year 
+     * @returns Array
+     */
+    funny(year) {
+        return funny[year]
+    }
 
+    /**
+     * 获取当月的天
+     * Day of the month
+     * @param {String | Number | undefined} month  
+     * @returns Array
+     */
+    cmod(month) {
+        if (!isMonth(month)) {
+            throw new Error("Month error")
+        }
+        const _d = new Date()
+        const days = []
+        try {
+            month = Number(month || DATE.getMonth())
+            _d.setMonth(month)
+        } catch (error) {
+            throw new Error(error)
+        }
+        const dayTotal = Number(new Date(_d.setDate(0)).toLocaleDateString().split(symbol).pop())
+        for (let i = 1; i <= dayTotal; i++) {
+            days.push(i)
+        }
+        return days || []
+    }
+
+    /**
+     * 指定月份日历表
+     * Month/day/week/year/month/day
+     * @param {String | Number} month  
+     * @returns Array
+     */
+    cmdw(month) {
+        if (!isMonth(month)) {
+            throw new Error("Month error")
+        }
+        const _d = new Date()
+        const days = []
+        try {
+            month = Number(month)
+            _d.setMonth(month)
+        } catch (error) {
+            throw new Error(error)
+        }
+        const dayTotal = Number(new Date(_d.setDate(0)).toLocaleDateString().split(symbol).pop())
+        for (let i = 1; i <= dayTotal; i++) {
+            let date = `${DATE.getFullYear()}-${zeroize(month)}-${zeroize(i)}`
+            days.push({
+                day: i,
+                active: +i === +new Date().getDate(),
+                week: `星期${weekday[new Date(date).getDay()]}`,
+                month: month,
+                month_abb: month_abb[month - 1],
+                month_ch: month_ch[month - 1],
+                month_en: month_en[month - 1],
+                date: date
+            })
+        }
+        return days || []
+    }
+
+    /**
+     * 获取当前季度
+     * quarter
+     * @returns String
+     */
+    qua() {
+        switch (Number(DATE.getMonth())) {
+            case 0:
+            case 1:
+            case 2:
+                return quarter[0]
+
+            case 3:
+            case 4:
+            case 5:
+                return quarter[1]
+
+            case 6:
+            case 7:
+            case 8:
+                return quarter[2]
+
+            case 9:
+            case 10:
+            case 11:
+                return quarter[3]
+            default:
+                break;
+        }
+    }
 
 }
 export default new v_ttc();
