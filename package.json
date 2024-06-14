@@ -1,14 +1,18 @@
 {
   "name": "v_datejs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "This is a very comprehensive library of date calculation tools",
   "main": "src/main.js",
+  "type": "module",
   "scripts": {
     "help": "rollup --help",
     "version": "rollup --version",
     "build": "rimraf dist &&  rollup -c rollup.config.mjs"
   },
-  "imports": "./dist/index.min.js",
+  "exports": {
+    "import": "./dist/index-module.js",
+    "require": "./dist/index-require.cjs"
+  },
   "author": "Vinca",
   "license": "ISC",
   "keywords": [],
