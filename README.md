@@ -1,6 +1,5 @@
 # 时间转换工具
 
-- （全称）时间转换工具 - tcon time converter
 - author: Vinca
 - mailbox: 237690966@qq.com
 - UpdateTime: 2024/6/13 15:29:18
