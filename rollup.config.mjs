@@ -4,7 +4,7 @@ export default {
     input: 'src/main.js',
     output: [
         {
-            file: 'dist/bundle.min.js',
+            file: 'dist/index.min.js',
             format: 'iife',
             name: 'v_ttc',
             plugins: [terser()]

@@ -17,6 +17,22 @@ npm install v_ttc
 import v from "v_ttc";
 ```
 
+## 使用
+
+html：
+
+```html
+<template>
+  <code>{{ v.tm() }}</code>
+</template>
+```
+
+js：
+
+```javascript
+<script>v.tm();</script>
+```
+
 ## 调用
 
 #### 获取当前时间

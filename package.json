@@ -8,9 +8,7 @@
     "version": "rollup --version",
     "build": "rimraf dist &&  rollup -c rollup.config.mjs"
   },
-  "exports": {
-    ".": "./dist/bundle.min.js"
-  },
+  "imports": "./dist/index.min.js",
   "author": "Vinca",
   "license": "ISC",
   "keywords": [],
