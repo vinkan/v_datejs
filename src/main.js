@@ -1,7 +1,7 @@
 import { version } from '../package.json';
 import { weekday, symbol, line, quarter, month_abb, month_en, month_ch } from './static.json';
 import funny from './funny.json'
-import { zeroize, isMonth, capsule } from './utils';
+import { zeroize, isMonth, capsule, isDate } from './utils';
 const DATE = new Date()
 let date = DATE.toLocaleDateString()
 class v_ttc {
@@ -321,7 +321,7 @@ class v_ttc {
      */
     surp(date) {
         // 获取当天日期
-        const today = date ? new Date(date) : new Date(Date.now());
+        const today = isDate(date)
         // 获取当前年份
         const currentYear = today.getFullYear();
         // 获取明年第一天
@@ -346,10 +346,37 @@ class v_ttc {
      * @returns Number
      */
     nm(date) {
-        date = date ? new Date(date) : new Date(Date.now())
+        date = isDate(date)
         const nextYearFirstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
         const diff = Math.ceil((nextYearFirstDay - date) / (1000 * 60 * 60 * 24))
         return diff
+    }
+
+
+    /**
+     * 
+     * 近三天
+     * Nearly three days
+     * @param {*} date 
+     * @param { Number, String } num 
+     * @returns Array
+     */
+    ntd(date, num = 3) {
+        if (isNaN(num)) {
+            throw new Error("num error")
+        }
+        if (num <= 0 || num > 7) {
+            throw new Error("Figure out of range")
+        }
+        const today = isDate(date)
+        const timestamp = today.valueOf()
+        const days = []
+        for (let i = 0; i < num; i++) {
+            const date = new Date(timestamp - (1000 * 60 * 60 * 24 * i))
+            const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
+            days.unshift(formattedDate);
+        }
+        return days;
     }
 }
 export default new v_ttc();

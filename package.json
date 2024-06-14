@@ -4,7 +4,12 @@
   "description": "tcon time converter",
   "main": "src/main.js",
   "scripts": {
+    "help": "rollup --help",
+    "version": "rollup --version",
     "build": "rimraf dist &&  rollup -c rollup.config.mjs"
+  },
+  "exports": {
+    ".": "./dist/bundle.min.js"
   },
   "author": "Vinca",
   "license": "ISC",

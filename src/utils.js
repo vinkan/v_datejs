@@ -57,3 +57,14 @@ export const capsule = (title, info, type = "default") => {
         "background:transparent"
     );
 };
+
+
+// 输入的不是一个日期格式
+export const isDate = (date) => {
+    date = date ? new Date(date) : new Date(Date.now())
+    if (isNaN(date)) {
+        throw new Error("Date error")
+    } else {
+        return date
+    }
+}
