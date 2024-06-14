@@ -1,7 +1,7 @@
 {
-  "name": "v_ttc",
-  "version": "0.0.1",
-  "description": "tcon time converter",
+  "name": "v_datejs",
+  "version": "0.0.2",
+  "description": "This is a very comprehensive library of date calculation tools",
   "main": "src/main.js",
   "scripts": {
     "help": "rollup --help",

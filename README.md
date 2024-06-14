@@ -8,13 +8,13 @@
 ## 安装
 
 ```sh
-npm install v_ttc
+npm install v_datejs
 ```
 
 ## 引用
 
 ```javascript
-import v from "v_ttc";
+import v from "v_datejs";
 ```
 
 ## 使用

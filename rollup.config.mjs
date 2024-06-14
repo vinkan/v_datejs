@@ -6,7 +6,7 @@ export default {
         {
             file: 'dist/index.min.js',
             format: 'iife',
-            name: 'v_ttc',
+            name: 'v_datejs',
             plugins: [terser()]
         }
     ]

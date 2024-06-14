@@ -4,11 +4,11 @@ import funny from './funny.json'
 import { zeroize, isMonth, capsule, isDate } from './utils';
 const DATE = new Date()
 let date = DATE.toLocaleDateString()
-class v_ttc {
+class v_datejs {
     constructor() {
         this.date = date;
         this.symbol = symbol;
-        capsule('📅 欢迎使用v_ttc', `😃 version ${version}`, 'warning');
+        capsule('📅 欢迎使用v_datejs', `😃 version ${version}`, 'warning');
     }
 
     /******************************************/
@@ -354,7 +354,6 @@ class v_ttc {
 
 
     /**
-     * 
      * 近三天
      * Nearly three days
      * @param {*} date 
@@ -379,4 +378,4 @@ class v_ttc {
         return days;
     }
 }
-export default new v_ttc();
+export default new v_datejs();
